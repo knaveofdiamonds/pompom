@@ -2,9 +2,6 @@
 coverage
 coverage.data
 
-# rdoc generated
-rdoc
-
 # yard generated
 doc
 .yardoc
@@ -14,6 +11,9 @@ doc
 
 # jeweler generated
 pkg
+
+# This is a gem, don't check in Gemfile.lock
+Gemfile.lock
 
 # Have editor/IDE/OS specific files you need to ignore? Consider using a global gitignore: 
 #

@@ -1,6 +1,6 @@
 = pompom
 
-Description goes here.
+A command line pomodoro timer.
 
 == Contributing to pompom
  
