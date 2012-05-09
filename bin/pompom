@@ -1,21 +1,11 @@
 #!/usr/bin/env ruby
 require File.expand_path(File.dirname(__FILE__) + "/../lib/pompom.rb")
-
-include FFI::NCurses
 include Pompom
 
-def display(screen, str)
-  screen.clear
-  screen.addstr(str)
-  screen.refresh
-end
-
 pomodoro = Pomodoro.new
+view     = View.new(NCursesScreen.new)
+pomodoro.add_observer(view)
 
-screen = NCursesScreen.new
-screen.run do
-  until pomodoro.finished?
-    pomodoro.tick
-    display screen, Artii::Base.new.asciify(Pompom.format_time(pomodoro.time_remaining))
-  end
+view.run do
+  pomodoro.tick until pomodoro.finished?
 end

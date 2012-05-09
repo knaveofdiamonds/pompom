@@ -22,8 +22,37 @@ module Pompom
         endwin
       end
     end
+
+    def display(str)
+      clear
+      addstr(str)
+      refresh
+    end
   end
 
+  class View
+    attr_writer :asciifier
+    
+    def initialize(screen)
+      @screen = screen
+      @asciifier = Artii::Base.new
+    end
+
+    def run(&block)
+      @screen.run(&block)
+    end
+
+    def update(time)
+      @screen.display format_for_screen(time)
+    end
+
+    private
+    
+    def format_for_screen(time)
+      @asciifier.asciify(Pompom.format_time(time))
+    end
+  end
+  
   class Pomodoro
     attr_reader :time_remaining
     attr_writer :system_clock
@@ -31,15 +60,27 @@ module Pompom
     def initialize(time_remaining=1500)
       @time_remaining = time_remaining
       @system_clock = Kernel
+      @observers = []
     end
 
+    def add_observer(object)
+      @observers << object
+    end
+    
     def tick
       @system_clock.sleep 1
       @time_remaining -= 1
+      notify_observers
     end
 
     def finished?
       @time_remaining < 1
+    end
+
+    private
+
+    def notify_observers
+      @observers.each {|o| o.update(@time_remaining) }
     end
   end
 end
