@@ -2,6 +2,9 @@ source "http://rubygems.org"
 
 gem "ffi-ncurses"
 gem "artii"
+gem "thor"
+gem "sequel"
+gem "sqlite3"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
