@@ -27,6 +27,7 @@ module Pompom
         @worklog.start pomodoro
         pomodoro.tick until pomodoro.finished?
       end
+      play_sound
     end
 
     def cleanup
@@ -34,6 +35,16 @@ module Pompom
     end
     
     private
+
+    # There has to be a better way of playing sounds through ruby...
+    # This will only work if you have sox installed (or a command
+    # named /usr/bin/play) and a sound named sound.wav in your
+    # ~/.pompom directory.
+    def play_sound
+      if File.exists?(File.expand_path("~/.pompom/sound.wav")) && File.exists?("/usr/bin/play")
+        `play -q ~/.pompom/sound.wav`
+      end
+    end
     
     def new_pomodoro
       pomodoro = Pomodoro.new(@options[:time], @options[:message])
