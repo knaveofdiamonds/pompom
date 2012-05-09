@@ -2,6 +2,18 @@
 
 A command line pomodoro timer.
 
+== Installation
+
+    gem install pompom
+
+== Usage
+
+    pompom -m "Thing I'm working on"
+
+See the man page with gem-man for more information, or
+
+    pompom --help
+
 == Contributing to pompom
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
