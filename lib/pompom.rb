@@ -23,4 +23,23 @@ module Pompom
       end
     end
   end
+
+  class Pomodoro
+    attr_reader :time_remaining
+    attr_writer :system_clock
+    
+    def initialize(time_remaining=1500)
+      @time_remaining = time_remaining
+      @system_clock = Kernel
+    end
+
+    def tick
+      @system_clock.sleep 1
+      @time_remaining -= 1
+    end
+
+    def finished?
+      @time_remaining < 1
+    end
+  end
 end

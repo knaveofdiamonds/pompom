@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
 require File.expand_path(File.dirname(__FILE__) + "/../lib/pompom.rb")
 
-total = 1500
-
-
 include FFI::NCurses
+include Pompom
 
 def display(screen, str)
   screen.clear
@@ -12,11 +10,12 @@ def display(screen, str)
   screen.refresh
 end
 
-screen = Pompom::NCursesScreen.new
+pomodoro = Pomodoro.new
+
+screen = NCursesScreen.new
 screen.run do
-  until total == 0
-    sleep(1)
-    total -= 1
-    display screen, Artii::Base.new.asciify(format_time(total))
+  until pomodoro.finished?
+    pomodoro.tick
+    display screen, Artii::Base.new.asciify(Pompom.format_time(pomodoro.time_remaining))
   end
 end
