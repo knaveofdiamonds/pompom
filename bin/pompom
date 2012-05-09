@@ -6,22 +6,17 @@ total = 1500
 
 include FFI::NCurses
 
-def display(str)
-  clear
-  addstr(str)
-  refresh
+def display(screen, str)
+  screen.clear
+  screen.addstr(str)
+  screen.refresh
 end
 
-begin
-  initscr
-  cbreak
-  noecho
-  curs_set 0
+screen = Pompom::NCursesScreen.new
+screen.run do
   until total == 0
     sleep(1)
     total -= 1
-    display Artii::Base.new.asciify(format_time(total))
+    display screen, Artii::Base.new.asciify(format_time(total))
   end
-ensure
-  endwin
 end
