@@ -152,10 +152,24 @@ module Pompom
     end
 
     def update(pomodoro)
-      @screen.display format_for_screen(pomodoro.time_remaining)
+      @screen.display format_for_screen(pomodoro.time_remaining), color(pomodoro), blink(pomodoro)
     end
 
     private
+
+    def color(pomodoro)
+      if pomodoro.time_remaining > 60
+        :green
+      elsif pomodoro.time_remaining > 15
+        :yellow
+      else
+        :red
+      end
+    end
+
+    def blink(pomodoro)
+      pomodoro.time_remaining < 5
+    end
     
     def format_for_screen(time)
       @asciifier.asciify(Pompom.format_time(time))
@@ -184,6 +198,10 @@ module Pompom
         initscr
         cbreak
         noecho
+        start_color
+        init_pair(1, COLOR_GREEN, COLOR_BLACK)
+        init_pair(2, COLOR_YELLOW, COLOR_BLACK)
+        init_pair(3, COLOR_RED, COLOR_BLACK)
         curs_set 0
         yield
       ensure
@@ -191,10 +209,25 @@ module Pompom
       end
     end
 
-    def display(str)
+    def display(str, color=:green, blinking=false)
       clear
-      addstr(str)
+      text_style = blinking ? A_BLINK : A_NORMAL
+      attr_set text_style, color_pair_mapping[color], nil
+
+      y, x = getmaxyx(stdscr)
+
+      lines = str.split("\n")
+      padding = (x - lines.first.size) / 2
+      ((y - lines.size - 1) / 2).times { addstr("\n") }
+      lines.each do |line|
+        addstr(" " * padding)
+        addstr(line + "\n")
+      end
       refresh
+    end
+
+    def color_pair_mapping
+      {:green => 1,:yellow => 2,:red => 3 }
     end
   end
 end

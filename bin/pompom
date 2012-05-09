@@ -7,9 +7,11 @@ opts = Trollop.options do
   opt :message, "What you're working on this pomodoro", :type => :string
   opt :time, "The time in seconds", :default => 1500, :type => :int
   opt :log, "Where to log work", :default => "~/.pompom/worklog", :type => :string
-  opt :no_log, "Do not log work"
 end
 
+if opts[:message].nil?
+  opts[:no_log] = true
+end
 application = Pompom::Application.new(opts)
 
 trap("SIGINT") do
