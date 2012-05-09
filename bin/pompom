@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require File.expand_path(File.dirname(__FILE__) + "/../lib/pompom.rb")
+total = 1500
+
+until total == 0
+  sleep(1)
+  total -= 1
+  puts format_time(total)
+end
+
