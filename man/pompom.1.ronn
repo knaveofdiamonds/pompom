@@ -1,0 +1,33 @@
+pompom(1) -- a comand line pomodoro timer
+=========================================
+
+## SYNOPSIS
+
+`pompom` [-m <message>] [-l <path>] [-t <seconds>]
+
+## DESCRIPTION
+
+**Pompom** runs a terminal-based pomodoro timer, and can log the work
+you do in each pomodoro.
+
+## OPTIONS
+
+  * `-m`, `--message`:
+    The message you want logged for the work you are doing. If 
+    no message is given, then nothing will be logged
+
+  * `-l`, `--log`:
+    The log location. By default this will be stored in your
+    home directory at ~/.pompom/worklog
+
+  * `-t`, `--time`
+    The time in seconds the timer should run for. By default
+    1500, (25 minutes).
+
+Pompom will play a sound at the end of a pomodoro if you have the play
+utility installed (provided by the sox package, at least on Ubuntu),
+and a file named ~/.pompom/sound.wav
+
+## COPYRIGHT
+
+Pompom is Copyright (C) 2012 Roland Swingler <http://github.com/knaveofdiamonds>

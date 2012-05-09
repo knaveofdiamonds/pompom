@@ -13,4 +13,5 @@ group :development do
   gem "yard", "~> 0.7"
   gem "bundler"
   gem "jeweler", "~> 1.8.3"
+  gem "ronn"
 end

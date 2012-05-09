@@ -1,0 +1,32 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "POMPOM" "1" "May 2012" "" ""
+.
+.SH "NAME"
+\fBpompom\fR \- a comand line pomodoro timer
+.
+.SH "SYNOPSIS"
+\fBpompom\fR [\-m \fImessage\fR] [\-l \fIpath\fR] [\-t \fIseconds\fR]
+.
+.SH "DESCRIPTION"
+\fBPompom\fR runs a terminal\-based pomodoro timer, and can log the work you do in each pomodoro\.
+.
+.SH "OPTIONS"
+.
+.IP "\(bu" 4
+\fB\-m\fR, \fB\-\-message\fR: The message you want logged for the work you are doing\. If no message is given, then nothing will be logged
+.
+.IP "\(bu" 4
+\fB\-l\fR, \fB\-\-log\fR: The log location\. By default this will be stored in your home directory at ~/\.pompom/worklog
+.
+.IP "\(bu" 4
+\fB\-t\fR, \fB\-\-time\fR The time in seconds the timer should run for\. By default 1500, (25 minutes)\.
+.
+.IP "" 0
+.
+.P
+Pompom will play a sound at the end of a pomodoro if you have the play utility installed (provided by the sox package, at least on Ubuntu), and a file named ~/\.pompom/sound\.wav
+.
+.SH "COPYRIGHT"
+Pompom is Copyright (C) 2012 Roland Swingler \fIhttp://github\.com/knaveofdiamonds\fR
