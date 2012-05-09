@@ -1,10 +1,27 @@
 #!/usr/bin/env ruby
 require File.expand_path(File.dirname(__FILE__) + "/../lib/pompom.rb")
+
 total = 1500
 
-until total == 0
-  sleep(1)
-  total -= 1
-  puts format_time(total)
+
+include FFI::NCurses
+
+def display(str)
+  clear
+  addstr(str)
+  refresh
 end
 
+begin
+  initscr
+  cbreak
+  noecho
+  curs_set 0
+  until total == 0
+    sleep(1)
+    total -= 1
+    display Artii::Base.new.asciify(format_time(total))
+  end
+ensure
+  endwin
+end
