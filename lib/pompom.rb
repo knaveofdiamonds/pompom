@@ -44,7 +44,7 @@ module Pompom
     
     def initialize(screen)
       @screen = screen
-      @asciifier = Artii::Base.new
+      @asciifier = Asciifier.new
     end
 
     def run(&block)
@@ -62,6 +62,20 @@ module Pompom
     end
   end
 
+  class Asciifier
+    def initialize
+      @asciifier = Artii::Base.new
+    end
+
+    def asciify(text)
+      result = @asciifier.asciify(text).split("\n")
+      # Fix kerning for when 2nd character of minutes is a 4. This fix
+      # should really be moved back upstream to the figlet font.
+      result[3].sub!(/_\| /, '_|')
+      result.join("\n")
+    end
+  end
+  
   class NCursesScreen
     include FFI::NCurses
 
