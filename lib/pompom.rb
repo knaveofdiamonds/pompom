@@ -7,52 +7,7 @@ module Pompom
     seconds = number % 60
     sprintf("%02d:%02d", minutes, seconds)
   end
-  
-  class NCursesScreen
-    include FFI::NCurses
 
-    def run
-      begin
-        initscr
-        cbreak
-        noecho
-        curs_set 0
-        yield
-      ensure
-        endwin
-      end
-    end
-
-    def display(str)
-      clear
-      addstr(str)
-      refresh
-    end
-  end
-
-  class View
-    attr_writer :asciifier
-    
-    def initialize(screen)
-      @screen = screen
-      @asciifier = Artii::Base.new
-    end
-
-    def run(&block)
-      @screen.run(&block)
-    end
-
-    def update(time)
-      @screen.display format_for_screen(time)
-    end
-
-    private
-    
-    def format_for_screen(time)
-      @asciifier.asciify(Pompom.format_time(time))
-    end
-  end
-  
   class Pomodoro
     attr_reader :time_remaining
     attr_writer :system_clock
@@ -81,6 +36,51 @@ module Pompom
 
     def notify_observers
       @observers.each {|o| o.update(@time_remaining) }
+    end
+  end
+
+  class View
+    attr_writer :asciifier
+    
+    def initialize(screen)
+      @screen = screen
+      @asciifier = Artii::Base.new
+    end
+
+    def run(&block)
+      @screen.run(&block)
+    end
+
+    def update(time)
+      @screen.display format_for_screen(time)
+    end
+
+    private
+    
+    def format_for_screen(time)
+      @asciifier.asciify(Pompom.format_time(time))
+    end
+  end
+
+  class NCursesScreen
+    include FFI::NCurses
+
+    def run
+      begin
+        initscr
+        cbreak
+        noecho
+        curs_set 0
+        yield
+      ensure
+        endwin
+      end
+    end
+
+    def display(str)
+      clear
+      addstr(str)
+      refresh
     end
   end
 end
