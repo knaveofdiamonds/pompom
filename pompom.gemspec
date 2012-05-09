@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Roland Swingler}]
   s.date = %q{2012-05-09}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{A command line pomodoro timer}
   s.email = %q{roland.swingler@gmail.com}
   s.executables = [%q{pompom}]
   s.extra_rdoc_files = [

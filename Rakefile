@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/knaveofdiamonds/pompom"
   gem.license = "MIT"
   gem.summary = %Q{A command line pomodoro timer}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{A command line pomodoro timer}
   gem.email = "roland.swingler@gmail.com"
   gem.authors = ["Roland Swingler"]
   # dependencies defined in Gemfile
