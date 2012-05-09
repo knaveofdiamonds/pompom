@@ -28,7 +28,7 @@ describe Pompom::Pomodoro do
   it "notifies observers of the time remaining when tick is called" do
     Kernel.stub(:sleep, nil) do
       observer = MiniTest::Mock.new
-      observer.expect(:update, nil, [1499])
+      observer.expect(:update, nil, [@pomodoro])
       @pomodoro.add_observer(observer)
       @pomodoro.tick
       observer.verify
@@ -38,5 +38,15 @@ describe Pompom::Pomodoro do
   it "should be finished when the time remaining is 0" do
     Pompom::Pomodoro.new(0).finished?.must_equal true
     Pompom::Pomodoro.new(-1).finished?.must_equal true
+  end
+
+  it "has a message" do
+    Pompom::Pomodoro.new(0, "Some testing").message.must_equal "Some testing"
+  end
+
+  it "can be finished early" do
+    @pomodoro.finish!
+    @pomodoro.time_remaining.must_equal 0
+    @pomodoro.finished_early?.must_equal true
   end
 end

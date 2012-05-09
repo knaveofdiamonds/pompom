@@ -1,11 +1,21 @@
 #!/usr/bin/env ruby
 require File.expand_path(File.dirname(__FILE__) + "/../lib/pompom.rb")
-include Pompom
+require 'trollop'
 
-pomodoro = Pomodoro.new
-view     = View.new(NCursesScreen.new)
-pomodoro.add_observer(view)
-
-view.run do
-  pomodoro.tick until pomodoro.finished?
+opts = Trollop.options do
+  banner  "A simple command line pomodoro timer, that can log your work."
+  opt :message, "What you're working on this pomodoro", :type => :string
+  opt :time, "The time in seconds", :default => 1500, :type => :int
+  opt :log, "Where to log work", :default => "~/.pompom/worklog", :type => :string
+  opt :no_log, "Do not log work"
 end
+
+application = Pompom::Application.new(opts)
+
+trap("SIGINT") do
+  application.cleanup
+  exit
+end
+
+application.run
+

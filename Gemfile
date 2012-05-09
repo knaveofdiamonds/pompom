@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 gem "ffi-ncurses"
 gem "artii"
-gem "thor"
+gem "trollop"
 gem "sequel"
 gem "sqlite3"
 

@@ -11,8 +11,10 @@ describe Pompom::View do
     asciifier.expect(:asciify, "foo", ["00:01"])
     @view.asciifier = asciifier
     @screen.expect(:display, nil, ["foo"])
+    pomodoro = MiniTest::Mock.new
+    pomodoro.expect(:time_remaining, 1, [])
     
-    @view.update(1)
+    @view.update(pomodoro)
     
     @screen.verify
     asciifier.verify
