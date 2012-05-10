@@ -8,3 +8,4 @@ notifications:
 branches:
   only:
     - master
+before_install: apt-get install libncurses5-dev
