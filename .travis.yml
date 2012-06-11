@@ -8,6 +8,4 @@ notifications:
 branches:
   only:
     - master
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install libncurses5-dev libncursesw5-dev lib32ncursesw5-dev
+before_script: export RUBY_FFI_NCURSES_LIB=/lib/x86_64-linux-gnu/libncursesw.so.5
